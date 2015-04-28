@@ -25,7 +25,7 @@ module Clockwork
       # Returns nil if it doesn't exist.
       def find(zk, lock_name, child)
         child_node = "/#{lock_name}/#{child}"
-        puts child_node
+
         if !zk.exists? child_node
           return nil
         end
