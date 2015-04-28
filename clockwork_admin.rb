@@ -102,7 +102,7 @@ class ClockworkAdmin < Sinatra::Base
   end
 
   get '/events/:id' do 
-    return [503, 'invalid event ID'] unless event_regex.match(params[:id])
+    return [403, 'invalid event ID'] unless event_regex.match(params[:id])
 
     event = Clockwork::Event.find(zk, settings.zk_lock_name, params[:id])
     return [404, 'event not found'] if event.nil?
@@ -111,7 +111,7 @@ class ClockworkAdmin < Sinatra::Base
   end
 
   post '/events/:id' do
-    return [503, 'invalid event ID'] unless event_regex.match(params[:id])
+    return [403, 'invalid event ID'] unless event_regex.match(params[:id])
 
     event = Clockwork::Event.find(zk, settings.zk_lock_name, params[:id])
     return [404, 'event not found'] if event.nil?
