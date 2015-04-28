@@ -1,0 +1,2 @@
+zk_cluster: 192.168.1.201:2181
+zk_lock_name: clock
