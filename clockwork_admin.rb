@@ -131,6 +131,12 @@ class ClockworkAdmin < Sinatra::Base
     json event
   end
 
+  after do
+    if @zk
+      @zk.close
+    end
+  end
+
   private
   def event_regex
     @event_regex ||= Regexp.new(settings.event_regex)
