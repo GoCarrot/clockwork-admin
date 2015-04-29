@@ -68,12 +68,18 @@ module Clockwork
         true
       end
 
-      def to_json(state = nil)
-        JSON.generate({
+      # the as_json/to_json split is for Rails compatibility
+      # as ActiveSupport will clobber our to_json method.
+      def as_json(opts = nil)
+        {
           event_name: @event_name,
           paused: paused,
           last: last.to_s
-        })
+        }
+      end
+
+      def to_json(opts = nil)
+        as_json.to_json
       end
     end
   end

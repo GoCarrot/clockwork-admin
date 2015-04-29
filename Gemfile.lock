@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     clockwork-admin (0.0.1)
+      multi_json (~> 1.8)
       sinatra (~> 1.4)
       sinatra-contrib (~> 1.4)
       zk (~> 1.9)

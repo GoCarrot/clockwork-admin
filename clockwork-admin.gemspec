@@ -27,4 +27,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "sinatra", '~> 1.4'
   spec.add_dependency "sinatra-contrib", '~> 1.4'
   spec.add_dependency "zk", '~> 1.9'
+  spec.add_dependency "multi_json", '~> 1.8'
 end
