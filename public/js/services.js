@@ -4,7 +4,7 @@ var clockworkAdminServices = angular.module('clockworkAdminServices', ['ngResour
 
 clockworkAdminServices.factory('Event', ['$resource', 
   function($resource) {
-    return $resource('/admin/clockwork/events/:id', {id: '@event_name'}, {
+    return $resource('events/:id', {id: '@event_name'}, {
             query: {method: 'GET', isArray:true},
             update: {method: 'POST'}
     });

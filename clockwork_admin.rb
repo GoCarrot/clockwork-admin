@@ -85,9 +85,6 @@ end
 
 class ClockworkAdmin < Sinatra::Base
   register Sinatra::ConfigFile
-  register Sinatra::Index
-
-  use_static_index 'index.html'
 
   # default settings
   configure do
@@ -96,6 +93,10 @@ class ClockworkAdmin < Sinatra::Base
   end
 
   config_file 'config/config.yml'
+
+  get '/' do
+    erb :'index.html'
+  end
 
   get '/events' do
     json Clockwork::Event.all(zk, settings.zk_lock_name)
@@ -129,6 +130,12 @@ class ClockworkAdmin < Sinatra::Base
     event.save!
 
     json event
+  end
+
+  helpers do
+    def base_url
+      @base_url ||= request.script_name.sub(/([^\/])$/, '\1/')
+    end
   end
 
   after do
