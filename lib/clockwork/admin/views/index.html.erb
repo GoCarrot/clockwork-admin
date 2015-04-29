@@ -22,7 +22,7 @@
     <tr ng-repeat="event in events">
       <td>{{event.event_name}}</td>
       <td class="datetime">{{event.last}}</td>
-      <td ng-click="togglePaused(event)">{{event.paused}}</td>
+      <td><input type="checkbox" ng-model="event.paused" ng-change="setPaused(event)"></td>
     </tr>
   </table>
 </body>
