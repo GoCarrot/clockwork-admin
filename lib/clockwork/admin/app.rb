@@ -1,6 +1,5 @@
 require 'sinatra/base'
 require 'sinatra/config_file'
-require 'sinatra/json'
 
 require 'multi_json'
 require 'zk'
@@ -21,16 +20,18 @@ module Clockwork
       end
 
       get '/events' do
-        json Event.all(zk, settings.zk_lock_name)
+        content_type :json
+        Event.all(zk, settings.zk_lock_name).to_json
       end
 
-      get '/events/:id' do 
+      get '/events/:id' do
         return [403, 'invalid event ID'] unless event_regex.match(params[:id])
 
         event = Event.find(zk, settings.zk_lock_name, params[:id])
         return [404, 'event not found'] if event.nil?
 
-        json event
+        content_type :json
+        event.to_json
       end
 
       post '/events/:id' do
@@ -51,7 +52,8 @@ module Clockwork
 
         event.save!
 
-        json event
+        content_type :json
+        event.to_json
       end
 
       helpers do
