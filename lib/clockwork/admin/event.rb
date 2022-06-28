@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Clockwork
   module Admin
     # Represents the ZooKeeper state of a Clockwork event.
@@ -53,7 +55,7 @@ module Clockwork
         @last ||= (Time.at(@zk.get(@node)[0].to_i))
       end
 
-      # writes the paused state of the 
+      # writes the paused state of the
       def save!
         if @dirty
           if @paused

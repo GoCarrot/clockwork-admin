@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'sinatra/base'
 require 'sinatra/config_file'
+require 'json'
 
-require 'multi_json'
 require 'zk'
 
 module Clockwork
@@ -41,7 +43,7 @@ module Clockwork
         return [404, 'event not found'] if event.nil?
 
         request.body.rewind
-        hash = MultiJson.load(request.body.read)
+        hash = JSON.parse(request.body.read)
 
         case hash['paused']
         when true
