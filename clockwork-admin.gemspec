@@ -21,8 +21,9 @@ Gem::Specification.new do |spec|
 
   spec.extra_rdoc_files = ["README.md"]
 
-  spec.add_development_dependency "bundler", "~> 1.9"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rack-test", ">= 1.1"
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec", "~> 3.13"
 
   spec.add_dependency "sinatra"
   spec.add_dependency "sinatra-contrib"
