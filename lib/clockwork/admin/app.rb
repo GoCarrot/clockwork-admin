@@ -15,6 +15,10 @@ module Clockwork
       configure do
         set :event_regex, '\A[a-zA-Z0-9_.]+\z'
         set :zk_root_node, '_clockwork'
+
+        # Sinatra's default protection reacts with :drop_session: a rejected Origin clears the session but the request
+        # still runs, and the host app has usually authenticated it by then. :deny makes it a 403.
+        set :protection, reaction: :deny
       end
 
       get '/' do
@@ -42,7 +46,6 @@ module Clockwork
         event = Event.find(zk, settings.zk_lock_name, params[:id])
         return [404, 'event not found'] if event.nil?
 
-        request.body.rewind
         hash = JSON.parse(request.body.read)
 
         case hash['paused']
