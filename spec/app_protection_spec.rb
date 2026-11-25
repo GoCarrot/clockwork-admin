@@ -6,7 +6,7 @@ describe Clockwork::Admin::App do
   # Behind a load balancer the request is http to the instance with X-Forwarded-Proto: https.
   let(:headers) { { 'HTTP_X_FORWARDED_PROTO' => 'https', 'HTTP_HOST' => 'admin.test', 'CONTENT_TYPE' => 'application/json' } }
   let(:body) { '{"paused":true}' }
-  let(:event) { double('event', save!: nil, to_json: '{}').tap { |e| allow(e).to receive(:paused=) } }
+  let(:event) { instance_double(Clockwork::Admin::Event, 'paused=': nil, save!: nil, to_json: '{}') }
 
   let(:app) do
     klass = Class.new(described_class)
@@ -19,7 +19,7 @@ describe Clockwork::Admin::App do
   end
 
   before do
-    allow(::ZK).to receive(:new).and_return(double('zk', close: nil))
+    allow(::ZK).to receive(:new).and_return(instance_double(ZK::Client::Threaded, close: nil))
     allow(Clockwork::Admin::Event).to receive(:find).and_return(event)
     allow(Clockwork::Admin::Event).to receive(:all).and_return([])
   end
